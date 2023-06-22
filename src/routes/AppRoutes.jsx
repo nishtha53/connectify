@@ -4,7 +4,7 @@ import Signup from "../pages/authentication/Signup";
 import {Home} from "../pages/Home/Home";
 import { Explore } from "../pages/Explore/Explore";
 import { Bookmarks } from "../pages/Bookmarks/Bookmarks";
-import Profile from "../pages/Profile/Profile";
+import {Profile} from "../pages/Profile/Profile";
 const AppRoutes = () => {
     return (
       <div>
@@ -14,7 +14,7 @@ const AppRoutes = () => {
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/bookmarks" element={<Bookmarks />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:username" element={<Profile />} />
         </Routes>
       </div>
     );

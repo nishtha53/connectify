@@ -10,6 +10,7 @@ import {
     FaFire,
     FaArrowUp,
     FaArrowDown,
+    FaArrowLeft
   } from "react-icons/fa";
   import {
     MdCancel,
@@ -35,6 +36,7 @@ import {
     FaArrowUp,
     FaBookmark,
     FaArrowDown,
+    FaArrowLeft,
     FiSearch,
     MdCancel,
     MdShare,
