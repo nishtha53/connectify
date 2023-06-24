@@ -1,37 +1,82 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "../../context/auth-context";
-import { FaImage, FaSmile, MdCancel } from "../../utils/icons";
-import { PrimaryButton } from "../Buttons/Buttons"
-import {UserAvatar} from "../UserAvatar/UserAvatar"
+import { usePosts } from "../../context/post-context";
+import { BsFillImageFill, FaSmile, MdCancel } from "../../utils/icons";
+import { PrimaryButton } from "../Buttons/Buttons";
+import {UserAvatar} from "../UserAvatar/UserAvatar";
+import { uploadMedia } from "../../utils/uploadMedia";
+
 
 const NewPost = () => {
   const { currentUser } = useAuth();
-  const [input, setInput] = useState("");
-  const [image, setImage] = useState(null);
+  const { createPostHandler } = usePosts();
+  const [content, setContent] = useState("");
+  const [media, setMedia] = useState(null);
+
+  const newPostRef = useRef();
+
+  const submitPostHandler = async (event) => {
+    event.preventDefault();
+    if (media) {
+      const resp = await uploadMedia(media);
+      createPostHandler({
+        content,
+        media: resp.url,
+        mediaAlt: resp.original_filename,
+      });
+    } else {
+      createPostHandler({ content, media: "", mediaAlt: "" });
+    }
+    setContent("");
+    setMedia(null);
+    newPostRef.current.innerText = "";
+  };
   return (
     <div className="grid grid-cols-[2rem_1fr] gap-2 items-start text-sm border-b border-darkGrey px-4 py-3 cursor-text dark:border-lightGrey">
       <UserAvatar user={currentUser} className="h-9 w-9" />
-      <form className="flex flex-col gap-4">
-        <div
-          role="textbox"
-          contentEditable="true"
-          data-text="What is happening?"
-          className="w-full break-all outline-none mt-1.5"
-        >
-          {image && (
+      <form className="flex flex-col gap-2" onSubmit={submitPostHandler}>
+        <div className="w-full outline-none mt-1.5 h-auto">
+          <textarea
+            ref={newPostRef}
+            value={content}
+            rows={2}
+            className="w-full outline-none resize-none h-auto"
+            placeholder="What is happening?!"
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
+          {media ? (
             <div className="relative">
-              <img src="" alt="demo" className="w-full h-auto rounded-md" />
-              <button type="button" className="absolute top-2 left-2 text-lg">
+              <img
+                src={URL.createObjectURL(media)}
+                alt="demo"
+                className="w-full h-auto rounded-md"
+              />
+              <button
+                type="button"
+                className="absolute top-1.5 left-2 text-lg"
+                onClick={() => setMedia(null)}
+              >
                 <MdCancel />
               </button>
             </div>
+          ) : (
+            <></>
           )}
         </div>
 
-        <div className="ml-auto flex items-center gap-4">
+        <div className="ml-auto flex items-center gap-4 mt-1.5">
           <label className="cursor-pointer text-xl">
-            <input type="file" accept="image/*" className="hidden" />
-            <FaImage />
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) =>
+                Math.round(e.target.files[0].size / 1024000) > 1
+                  ? console.log("File size should not be more than 1Mb")
+                  : setMedia(e.target.files[0])
+              }
+            />
+            <BsFillImageFill />
           </label>
           <label className="cursor-pointer text-xl">
             <input className="hidden" />
@@ -39,9 +84,8 @@ const NewPost = () => {
           </label>
           <PrimaryButton
             type="submit"
-            className="py-1 px-4 rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-primary"
-            disabled=""
-
+            className="py-1 px-4 rounded-md disabled:opacity-80 disabled:cursor-not-allowed"
+            disabled={!content.trim() && !media}
           >
             Post
           </PrimaryButton>

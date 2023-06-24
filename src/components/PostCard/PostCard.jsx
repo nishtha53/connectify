@@ -105,9 +105,9 @@ const PostCard = ({ post }) => {
             <button className="cursor-pointer">
               <FaRegComments className="text-lg" />
             </button>
-            {post?.comments.length > 0 && (
+            {/* {post?.comments.length > 0 && (
               <span className="ml-1">{post?.comments.length}</span>
-            )}
+            )} */}
           </div>
 
           <button

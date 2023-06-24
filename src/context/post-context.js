@@ -10,7 +10,7 @@ import {
 import { initialPostsState,postsReducer } from "../reducer/postReducer";
 
 
-import { getAllPostsService, dislikePostService,likePostService } from "../services/postService";
+import { getAllPostsService, dislikePostService,likePostService, createPostService, editPostService, deletePostService } from "../services/postService";
 
 import { useAuth } from "./auth-context";
 export const PostsContext = createContext();
@@ -40,6 +40,51 @@ export const PostsProvider = ({ children }) => {
         console.error(error);
       } finally {
         setIsLoading(false);
+      }
+    };
+
+    const createPostHandler = async ({ content, media, mediaAlt }) => {
+      setIsLoading(true);
+      try {
+        const {
+          status,
+          data: { posts },
+        } = await createPostService(content, media, mediaAlt, token);
+        if (status === 201) {
+          postsDispatch({ type: "CREATE_NEW_POST", payload: posts });
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    const deletePostHandler = async (postId) => {
+      try {
+        const {
+          status,
+          data: { posts },
+        } = await deletePostService(postId, token);
+        if (status === 201) {
+          postsDispatch({ type: "DELETE_POST", payload: posts });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    const editPostHandler = async (postId, { content, media, mediaAlt }) => {
+      try {
+        const {
+          status,
+          data: { posts },
+        } = await editPostService(postId, content, media, mediaAlt, token);
+        if (status === 201) {
+          postsDispatch({ type: "EDIT_POST", payload: posts });
+        }
+      } catch (error) {
+        console.error(error);
       }
     };
 
@@ -111,7 +156,7 @@ export const PostsProvider = ({ children }) => {
       }, []);
     
       return (
-        <PostsContext.Provider value={{ postsState, postsDispatch, isLoading,likePostHandler,dislikePostHandler,likedByLoggedUser, filteredPosts }}>
+        <PostsContext.Provider value={{ postsState, postsDispatch, isLoading,likePostHandler,dislikePostHandler,likedByLoggedUser, filteredPosts, createPostHandler, editPostHandler, deletePostHandler }}>
           {children}
         </PostsContext.Provider>
       );

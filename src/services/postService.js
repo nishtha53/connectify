@@ -2,6 +2,35 @@ import axios from "axios";
 
 const getAllPostsService = async () => await axios.get("/api/posts");
 
+
+const createPostService = async (content, mediaURL, mediaAlt, encodedToken) =>
+  await axios.post(
+    "/api/posts",
+    { postData: { content, mediaURL, mediaAlt } },
+    { headers: { authorization: encodedToken } }
+  );
+
+const deletePostService = async (postId, encodedToken) =>
+  await axios.delete(`/api/posts/${postId}`, {
+    headers: { authorization: encodedToken },
+  });
+
+const editPostService = async (
+  postId,
+  content,
+  mediaURL,
+  mediaAlt,
+  encodedToken
+) =>
+  await axios.post(
+    `/api/posts/edit/${postId}`,
+    { postData: { content, mediaURL, mediaAlt } },
+    {
+      headers: { authorization: encodedToken },
+    }
+  );
+
+
 const likePostService = async (postId, encodedToken) =>
   await axios.post(
     `/api/posts/like/${postId}`,
@@ -19,4 +48,4 @@ const dislikePostService = async (postId, encodedToken) =>
       headers: { authorization: encodedToken },
     }
   );
-export { getAllPostsService, likePostService, dislikePostService };
+export { getAllPostsService, likePostService, dislikePostService, createPostService, editPostService,deletePostService };
