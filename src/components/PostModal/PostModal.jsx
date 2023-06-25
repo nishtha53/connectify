@@ -13,13 +13,15 @@ const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
 
   const styles = {
     position: "absolute",
-    top: "50%",
+    top: "30%",
     left: "50%",
-    transform: "translate(-50%, -50%)",
+    down:"90%",
+    width: "80%",
+    height: "50%",
+    transform: "translate(-50%, -20%)",
     bgcolor: "background.paper",
-    border: "1px solid #000",
     boxShadow: 24,
-    p: 4,
+    //p: 4,
   };
 
   const [content, setContent] = useState(post || {});
@@ -112,7 +114,7 @@ const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
           )}
         </div>
 
-        <div className="flex justify-between gap-2">
+        <div className="flex justify-between gap-3 pr-2">
           <div className="flex justify-center items-center gap-3">
             <label className="cursor-pointer text-lg">
               <input
@@ -134,10 +136,10 @@ const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
               <FaSmile />
             </label>
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-5">
             <PrimaryButton
               type="submit"
-              className="py-1.5 px-5 rounded-md disabled:opacity-80 border-lightPrimary"
+              className="py-2.5 px-5 rounded-md disabled:opacity-80 border-lightPrimary"
               disabled={!content?.content?.trim() && !media}
             >
               {post ? "Save" : "Post"}

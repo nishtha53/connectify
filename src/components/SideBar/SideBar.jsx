@@ -115,7 +115,7 @@ const SideBar = () => {
 
       <Modal isOpen={showPostModal} onClose={() => setShowPostModal(false)}>
         <ModalOverlay />
-        <ModalContent width="500px" maxHeight="90vh">
+        <ModalContent width="90%" maxWidth="500px" maxHeight="90vh" height="50%">
           <ModalHeader>Create a new post</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

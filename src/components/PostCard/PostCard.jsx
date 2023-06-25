@@ -117,6 +117,7 @@ const PostCard = ({ post }) => {
                 ? removeBookmarkHandler(post?._id)
                 : addBookmarkHandler(post?._id)
             }
+
           >
             {postAlreadyInBookmarks(post?._id) ? (
               <FaBookmark className="text-lg" />
