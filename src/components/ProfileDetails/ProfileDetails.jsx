@@ -9,12 +9,17 @@ import { defaultBgImage } from "../../utils/constants";
 import { useState } from "react";
 import { UsersModal } from "../UsersModal/UsersModal";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
+import { EditUserModal } from "../EditUserModal/EditUserModal";
+
+
 
 
 const ProfileDetails = ({ user }) => {
   const { currentUser, logoutHandler } = useAuth();
 
   const { followUserHandler, unfollowUserHandler } = useUsers();
+
+  const [editUserModal, setEditUserModal] = useState(false);
 
   const [usersListModal, setUsersListModal] = useState({
     show: false,
@@ -27,7 +32,7 @@ const ProfileDetails = ({ user }) => {
   );
 
   return (
-    <div className="relative flex flex-col items-center w-full border-b border-darkGrey dark:border-lightGrey">
+    <div  className="relative flex flex-col items-center w-full border-b border-darkGrey dark:border-lightGrey">
       <>
         <img
           src={user?.backgroundImage ? user?.backgroundImage : defaultBgImage}
@@ -47,7 +52,8 @@ const ProfileDetails = ({ user }) => {
                 <>
                   <SecondaryButton
                     className="py-1 px-3 rounded"
-                    
+                    onClick={() => setEditUserModal(true)}
+
                   >
                     Edit Profile
                   </SecondaryButton>
@@ -128,18 +134,23 @@ const ProfileDetails = ({ user }) => {
 
       {usersListModal.show && (
         <Modal isOpen={usersListModal.show} onClose={() => setUsersListModal(() => ({ show: false, title: "", list: [] }))}>
-        <ModalOverlay />
-        <ModalContent width="90%" maxWidth="500px" maxHeight="90vh" height="50%">
-          <ModalHeader>{usersListModal.title}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <UsersModal usersListModal={usersListModal} setUsersListModal={setUsersListModal} />
-          </ModalBody>
-          <ModalFooter>
-            {/* Add your modal footer content here */}
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          <ModalOverlay />
+          <ModalContent width="90%" maxWidth="500px" maxHeight="90vh" height="50%">
+            <ModalHeader>{usersListModal.title}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <UsersModal usersListModal={usersListModal} setUsersListModal={setUsersListModal} />
+            </ModalBody>
+            <ModalFooter>
+              {/* Add your modal footer content here */}
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
+      {editUserModal && (
+        <Modal isOpen={editUserModal} onClose={() => setEditUserModal(false)}>
+          <EditUserModal setEditUserModal={setEditUserModal} />
+        </Modal>
       )}
 
     </div>

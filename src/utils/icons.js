@@ -11,6 +11,7 @@ import {
     FaTimes,
     FaFire,
     FaArrowUp,
+    FaCamera,
     FaArrowDown,
     FaUserPlus,
     FaArrowLeft,
@@ -29,7 +30,7 @@ import {
   import { HiDotsHorizontal, HiPlusCircle , HiLink} from "react-icons/hi";
   import { FiSearch } from "react-icons/fi";
   import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-  import { BsFillImageFill } from "react-icons/bs";
+  import { BsFillImageFill , BsPersonCircle} from "react-icons/bs";
   import { RiUserUnfollowFill } from "react-icons/ri";
 
 
@@ -49,6 +50,7 @@ import {
     FaFire,
     FaArrowUp,
     FaBookmark,
+    FaCamera,
     FaArrowDown,
     FaUserPlus,
     FaArrowLeft,
@@ -66,5 +68,6 @@ import {
     AiOutlineEye,
     AiOutlineEyeInvisible,
     BsFillImageFill,
-    RiUserUnfollowFill
+    RiUserUnfollowFill,
+    BsPersonCircle
   };

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useUsers } from "../../context/user-context";
 import {UserAvatar} from "../UserAvatar/UserAvatar";
 import { PostOptionsModal } from "../PostOptionModal/PostOptionModal";
+import { useNavigate } from "react-router-dom";
 import {
   HiDotsHorizontal,
   FaRegHeart,
@@ -18,6 +19,8 @@ import { getPostDate } from "../../utils/getPostDate";
 
 
 const PostCard = ({ post }) => {
+   
+  const navigate = useNavigate();
 
   const { currentUser } = useAuth();
 
@@ -37,7 +40,12 @@ const PostCard = ({ post }) => {
 
   return (
     <div className="grid grid-cols-[2rem_1fr] gap-2 text-sm border-b border-darkGrey dark:border-lightGrey px-4 py-3 cursor-pointer">
-      <div>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/profile/${userWhoPosted?.username}`);
+        }}
+      >
         <UserAvatar user={userWhoPosted} className="h-9 w-9" />
       </div>
 

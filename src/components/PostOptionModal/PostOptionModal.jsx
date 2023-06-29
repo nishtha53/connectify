@@ -12,6 +12,7 @@ import { PostModal } from "../PostModal/PostModal";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 
+
 const PostOptionsModal = ({ post, setShowOptions }) => {
   const { _id, username } = post;
   const { currentUser } = useAuth();
@@ -88,7 +89,7 @@ const PostOptionsModal = ({ post, setShowOptions }) => {
 
 <Modal isOpen={showPostModal} onClose={() => setShowPostModal(false)}>
         <ModalOverlay />
-        <ModalContent maxW="500px">
+        <ModalContent width="100%" maxWidth="500px" maxHeight="90vh" height="60%">
           <ModalHeader>Edit Post</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

@@ -10,7 +10,7 @@ import {
 
   import { usersReducer,initialUsersState } from "../reducer/userReducer";
 
-  import { getAllUsersService,getAllBookmarksService,addBookmarkService,removeBookmarkService , followUserService, unfollowUserService } from "../services/userService";
+  import { getAllUsersService,getAllBookmarksService,addBookmarkService,removeBookmarkService , followUserService, unfollowUserService, editUserProfileService } from "../services/userService";
 
   export const UsersContext = createContext();
 
@@ -145,6 +145,25 @@ import {
         setIsLoading(false);
       }
     };
+
+    const editUserProfileHandler = async (editInput) => {
+      setIsLoading(true);
+      try {
+        const {
+          status,
+          data: { user },
+        } = await editUserProfileService(editInput, token);
+        if (status === 201) {
+          usersDispatch({ type: "EDIT_USER_PROFILE", payload: user });
+          setCurrentUser(user);
+          console.log("Updated profile successfully!");
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
   
     const postAlreadyInBookmarks = (postId) =>
       usersState?.bookmarks?.find((id) => id === postId);
@@ -162,7 +181,7 @@ import {
 
   
     return (
-      <UsersContext.Provider value={{ usersState, usersDispatch, isLoading,addBookmarkHandler,removeBookmarkHandler,postAlreadyInBookmarks, followUserHandler, unfollowUserHandler }}>
+      <UsersContext.Provider value={{ usersState, usersDispatch, isLoading,addBookmarkHandler,removeBookmarkHandler,postAlreadyInBookmarks, followUserHandler, unfollowUserHandler, editUserProfileHandler }}>
         {children}
       </UsersContext.Provider>
     );

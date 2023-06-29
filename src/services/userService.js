@@ -40,11 +40,19 @@ const unfollowUserService = async (followUserId, encodedToken) =>
     { headers: { authorization: encodedToken } }
   );
 
+  const editUserProfileService = async (editInput, encodedToken) =>
+  await axios.post(
+    "/api/users/edit",
+    { userData: editInput },
+    { headers: { authorization: encodedToken } }
+  );
+
   export {
     getAllUsersService,
     getAllBookmarksService,
     addBookmarkService,
     removeBookmarkService,
     followUserService,
-    unfollowUserService
+    unfollowUserService,
+    editUserProfileService
   };

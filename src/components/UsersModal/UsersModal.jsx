@@ -42,7 +42,7 @@ const UsersModal = ({ usersListModal, setUsersListModal }) => {
               key={user?._id}
               className="flex gap-2 cursor-pointer"
               onClick={() => {
-                navigate(`profile/${user?.username}`);
+                navigate(`/profile/${user?.username}`);
                 setUsersListModal({ show: false, title: "", list: [] });
               }}
             >

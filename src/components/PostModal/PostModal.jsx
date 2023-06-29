@@ -10,19 +10,17 @@ import { usePosts } from "../../context/post-context";
 const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
   const { currentUser } = useAuth();
   const { createPostHandler, editPostHandler } = usePosts();
-
   const styles = {
     position: "absolute",
     top: "30%",
     left: "50%",
-    down:"90%",
-    width: "80%",
-    height: "50%",
     transform: "translate(-50%, -20%)",
+    width: "80%",
+    height: "fit-content",
     bgcolor: "background.paper",
     boxShadow: 24,
-    //p: 4,
   };
+  
 
   const [content, setContent] = useState(post || {});
   const [media, setMedia] = useState(null);

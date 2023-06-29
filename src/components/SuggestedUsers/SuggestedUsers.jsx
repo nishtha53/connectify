@@ -43,7 +43,7 @@ const SuggestedUsers = () => {
 
                   <div
                     className="flex flex-col grow -mt-0.5"
-                    onClick={() => navigate(`profile/${user?.username}`)}
+                    onClick={() => navigate(`/profile/${user?.username}`)}
                   >
                     <span className="text-sm">
                       {user.firstName + " " + user.lastName}

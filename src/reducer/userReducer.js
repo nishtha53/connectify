@@ -24,6 +24,13 @@ const usersReducer = (state, { type, payload }) => {
             return updatedUser ? updatedUser : user;
           }),
         };
+    case "EDIT_USER_PROFILE":
+        return {
+            ...state,
+            users: state.users.map((user) =>
+              user._id === payload._id ? payload : user
+            ),
+          };
     default:
       return state;
   }
