@@ -11,14 +11,18 @@ import {
 import { PostModal } from "../PostModal/PostModal";
 import { PrimaryButton } from "../Buttons/Buttons";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
+import { SettingsModal } from "../SettingsModal/SettingsModal";
 import { useAuth } from "../../context/auth-context";
 import { React, useState } from "react";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
+import { Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverBody, PopoverFooter, PopoverArrow, Button } from "@chakra-ui/react";
 
 
 const SideBar = () => {
   const { currentUser } = useAuth();
   const [showPostModal, setShowPostModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+
 
   const activeStyle = {
     backgroundColor: "#94EDFF",
@@ -95,7 +99,8 @@ const SideBar = () => {
           </PrimaryButton>
         </li>
 
-        <li className="flex p-2 w-max sm:hidden">
+        <li className="flex p-2 w-max sm:hidden" onClick={() => setShowSettingsModal(true)}
+        >
           <UserAvatar className="h-8 w-8" user={currentUser} />
         </li>
       </ul>
@@ -104,12 +109,21 @@ const SideBar = () => {
         <li className="p-3 w-max flex items-center justify-center gap-2">
           <UserAvatar className="h-10 w-10" user={currentUser} />
           <div className="hidden text-sm lg:inline">
-            <p className="font-bold">
-              {currentUser?.firstName + " " + currentUser?.lastName}
-            </p>
+            <p className="font-bold">{currentUser?.firstName + " " + currentUser?.lastName}</p>
             <p className="font-normal">@{currentUser?.username}</p>
           </div>
-          <HiDotsHorizontal className="ml-4 hidden lg:inline" />
+          <Popover>
+            <PopoverTrigger>
+              <HiDotsHorizontal className=" hidden lg:inline cursor-pointer" title="Settings Options" />
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverHeader>Settings</PopoverHeader>
+              <PopoverBody>
+                <SettingsModal setShowSettingsModal={setShowSettingsModal} />
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
         </li>
       </ul>
 
@@ -126,6 +140,7 @@ const SideBar = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
+
     </aside>
   );
 };

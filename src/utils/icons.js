@@ -25,6 +25,7 @@ import {
     MdExplore,
     MdBookmarks,
     MdPerson,
+    MdLogout,
     MdDateRange
   } from "react-icons/md";
   import { HiDotsHorizontal, HiPlusCircle , HiLink} from "react-icons/hi";
@@ -61,6 +62,7 @@ import {
     MdExplore,
     MdBookmarks,
     MdDateRange,
+    MdLogout,
     MdPerson,
     HiDotsHorizontal,
     HiPlusCircle,
