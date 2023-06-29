@@ -10,13 +10,13 @@ import {
 
   import { usersReducer,initialUsersState } from "../reducer/userReducer";
 
-  import { getAllUsersService,getAllBookmarksService,addBookmarkService,removeBookmarkService } from "../services/userService";
+  import { getAllUsersService,getAllBookmarksService,addBookmarkService,removeBookmarkService , followUserService, unfollowUserService } from "../services/userService";
 
   export const UsersContext = createContext();
 
 
   export const UsersProvider = ({ children }) => {
-    const { token } = useAuth();
+    const { token, setCurrentUser } = useAuth();
 
     const [usersState, usersDispatch] = useReducer(
       usersReducer,
@@ -100,9 +100,56 @@ import {
         }
       }
     };
+
+    const followUserHandler = async (followUserId) => {
+      setIsLoading(true);
+      try {
+        const {
+          status,
+          data: { user, followUser },
+        } = await followUserService(followUserId, token);
+        if (status === 200) {
+          usersDispatch({
+            type: "UPDATE_FOLLOW_USER",
+            payload: [followUser, user],
+          });
+          setCurrentUser(user);
+          console.log(`Followed @${followUser.username}`);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    const unfollowUserHandler = async (followUserId) => {
+      setIsLoading(true);
+      try {
+        const {
+          status,
+          data: { user, followUser },
+        } = await unfollowUserService(followUserId, token);
+        if (status === 200) {
+          usersDispatch({
+            type: "UPDATE_FOLLOW_USER",
+            payload: [followUser, user],
+          });
+          setCurrentUser(user);
+          console.log(`Unfollowed @${followUser.username}`);
+        }
+      } catch (error) {
+        console.error(error);
+        console.log("Something went wrong.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
   
     const postAlreadyInBookmarks = (postId) =>
       usersState?.bookmarks?.find((id) => id === postId);
+
+    
   
     useEffect(() => {
       getAllUsers();
@@ -115,7 +162,7 @@ import {
 
   
     return (
-      <UsersContext.Provider value={{ usersState, usersDispatch, isLoading,addBookmarkHandler,removeBookmarkHandler,postAlreadyInBookmarks }}>
+      <UsersContext.Provider value={{ usersState, usersDispatch, isLoading,addBookmarkHandler,removeBookmarkHandler,postAlreadyInBookmarks, followUserHandler, unfollowUserHandler }}>
         {children}
       </UsersContext.Provider>
     );

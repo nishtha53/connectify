@@ -26,9 +26,25 @@ const removeBookmarkService = async (postId, encodedToken) =>
     }
   );
 
+  const followUserService = async (followUserId, encodedToken) =>
+  await axios.post(
+    `/api/users/follow/${followUserId}`,
+    {},
+    { headers: { authorization: encodedToken } }
+  );
+
+const unfollowUserService = async (followUserId, encodedToken) =>
+  await axios.post(
+    `/api/users/unfollow/${followUserId}`,
+    {},
+    { headers: { authorization: encodedToken } }
+  );
+
   export {
     getAllUsersService,
     getAllBookmarksService,
     addBookmarkService,
     removeBookmarkService,
+    followUserService,
+    unfollowUserService
   };

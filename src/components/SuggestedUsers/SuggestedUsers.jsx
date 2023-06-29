@@ -2,11 +2,17 @@ import { useAuth } from "../../context/auth-context";
 import { useUsers } from "../../context/user-context";
 import { PrimaryButton } from "../Buttons/Buttons"
 import {UserAvatar} from "../UserAvatar/UserAvatar"
+import { useNavigate } from "react-router-dom";
+
 
 const SuggestedUsers = () => {
+
+  const navigate = useNavigate();
+
   const { currentUser } = useAuth();
   const {
     usersState: { users },
+    followUserHandler
   } = useUsers();
 
   const userData = users?.find(
@@ -29,26 +35,32 @@ const SuggestedUsers = () => {
           <div className="text-lg font-bold tracking-wide">Who to Follow</div>
 
           {filteredUsers?.map((user) => (
-            <div
-              key={user._id}
-              className="flex items-start gap-2 cursor-pointer"
-            >
-              <UserAvatar user={user} className="h-9 w-9" />
+                <div
+                  key={user._id}
+                  className="flex items-start gap-2 cursor-pointer"
+                >
+                  <UserAvatar user={user} className="h-9 w-9" />
 
-              <div className="flex flex-col grow -mt-0.5">
-                <span className="text-sm">
-                  {user.firstName + " " + user.lastName}
-                </span>
-                <span className="text-sm text-[grey] -mt-1">
-                  @{user.username}
-                </span>
-              </div>
+                  <div
+                    className="flex flex-col grow -mt-0.5"
+                    onClick={() => navigate(`profile/${user?.username}`)}
+                  >
+                    <span className="text-sm">
+                      {user.firstName + " " + user.lastName}
+                    </span>
+                    <span className="text-sm text-[grey] -mt-1">
+                      @{user.username}
+                    </span>
+                  </div>
 
-              <PrimaryButton className="py-1 px-2 rounded-md">
-                Follow
-              </PrimaryButton>
-            </div>
-          ))}
+                  <PrimaryButton
+                    className="py-1 px-2 rounded-md"
+                    onClick={() => followUserHandler(user?._id)}
+                  >
+                    Follow
+                  </PrimaryButton>
+                </div>
+              ))}
         </div>
       ) : (
         <></>

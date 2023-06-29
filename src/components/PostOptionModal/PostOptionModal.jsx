@@ -17,6 +17,8 @@ const PostOptionsModal = ({ post, setShowOptions }) => {
   const { currentUser } = useAuth();
   const {
     usersState: { users },
+    unfollowUserHandler,
+    followUserHandler,
   } = useUsers();
   const { deletePostHandler } = usePosts();
 
@@ -62,18 +64,26 @@ const PostOptionsModal = ({ post, setShowOptions }) => {
           </button>
         </>
       ) : (
-        <button className="py-2 px-4 text-left cursor-pointer rounded-md hover:bg-lightPrimary flex items-center justify-center">
-          {userAlreadyFollowing ? (
-            <>
-              <RiUserUnfollowFill className="mr-2 " /> Unfollow{" "}
-            </>
-          ) : (
-            <>
-              <FaUserPlus className="mr-2 " />
-              Follow
-            </>
-          )}
-        </button>
+        <button
+        className="py-2 px-4 text-left cursor-pointer rounded-md hover:bg-lightPrimary flex items-center justify-center"
+        onClick={() => {
+          userAlreadyFollowing
+            ? unfollowUserHandler(userToFollow?._id)
+            : followUserHandler(userToFollow?._id);
+          setShowOptions(false);
+        }}
+      >
+        {userAlreadyFollowing ? (
+          <>
+            <RiUserUnfollowFill className="mr-2 " /> Unfollow{" "}
+          </>
+        ) : (
+          <>
+            <FaUserPlus className="mr-2 " />
+            Follow
+          </>
+        )}
+      </button>
       )}
 
 <Modal isOpen={showPostModal} onClose={() => setShowPostModal(false)}>
