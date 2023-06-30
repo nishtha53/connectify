@@ -113,17 +113,20 @@ const SideBar = () => {
             <p className="font-normal">@{currentUser?.username}</p>
           </div>
           <Popover>
-            <PopoverTrigger>
-              <HiDotsHorizontal className=" hidden lg:inline cursor-pointer" title="Settings Options" />
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverHeader>Settings</PopoverHeader>
-              <PopoverBody>
-                <SettingsModal setShowSettingsModal={setShowSettingsModal} />
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+  <PopoverTrigger>
+    <div className="relative">
+      <HiDotsHorizontal className="hidden lg:inline cursor-pointer" title="Settings Options" />
+      <PopoverContent placement="top" align="start">
+        <PopoverArrow />
+        <PopoverHeader>Settings</PopoverHeader>
+        <PopoverBody>
+          <SettingsModal setShowSettingsModal={setShowSettingsModal} />
+        </PopoverBody>
+      </PopoverContent>
+    </div>
+  </PopoverTrigger>
+</Popover>
+
         </li>
       </ul>
 
