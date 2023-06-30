@@ -7,10 +7,10 @@ import { formatDate } from "../utils/authUtils";
 export const users = [
   {
     _id: "t7cZfWIp-q",
-    firstName: "Emily",
-    lastName: "Smith",
-    password: "emily@123Smith",
-    username: "emilysmith",
+    firstName: "Nishtha",
+    lastName: "Thakkar",
+    password: "nish",
+    username: "nishtha",
     bio: "Aspiring Frontend Developer",
     website: "https://emilysmith.tech",
     profileAvatar:
