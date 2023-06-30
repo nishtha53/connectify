@@ -2,6 +2,7 @@ import { useAuth } from "../../context/auth-context";
 import { PrimaryButton } from "../Buttons/Buttons";
 import { SecondaryButton } from "../Buttons/Buttons";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
+import { toast } from "react-hot-toast";
 import { useRef, useState } from "react";
 import { BsFillImageFill, FaSmile, MdCancel } from "../../utils/icons";
 import { uploadMedia } from "../../utils/uploadMedia";
@@ -30,6 +31,7 @@ const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
   const submitHandler = async (event) => {
     event.preventDefault();
     if (post) {
+      const toastId = toast.loading("Updating post...");
       if (media) {
         const resp = await uploadMedia(media);
         editPostHandler(post._id, {
@@ -44,8 +46,10 @@ const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
           mediaAlt: content?.mediaAlt,
         });
       }
+      toast.success("Updated post successfully", { id: toastId });
       setShowOptions((prev) => !prev);
     } else {
+      const toastId = toast.loading("Creating new post..");
       if (media) {
         const resp = await uploadMedia(media);
         createPostHandler({
@@ -60,6 +64,7 @@ const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
           mediaAlt: "",
         });
       }
+      toast.success("Added new post successfully", { id: toastId });
     }
     setShowPostModal(false);
     setContent({});

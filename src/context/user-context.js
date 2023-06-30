@@ -6,6 +6,8 @@ import {
     useState,
   } from "react";
 
+  import { toast } from "react-hot-toast";
+
   import { useAuth } from "./auth-context";
 
   import { usersReducer,initialUsersState } from "../reducer/userReducer";
@@ -67,15 +69,16 @@ import {
         } = await addBookmarkService(postId, token);
         if (status === 200) {
           usersDispatch({ type: "ADD_BOOKMARK", payload: bookmarks });
+          toast.success("Added to bookmarks!");
         }
       } catch (error) {
         const {
           response: { status },
         } = error;
         if (status === 400) {
-          //console.log("Post is already bookmarked.");
+          toast.error("Post is already bookmarked.");
         } else {
-          console.error(error);
+          toast.error("Something went wrong!");
         }
       }
     };
@@ -88,15 +91,16 @@ import {
         } = await removeBookmarkService(postId, token);
         if (status === 200) {
           usersDispatch({ type: "REMOVE_BOOKMARK", payload: bookmarks });
+          toast.success("Removed from bookmarks!");
         }
       } catch (error) {
         const {
           response: { status },
         } = error;
         if (status === 400) {
-          //console.log("Post not bookmarked yet.");
+          toast.error("Post not bookmarked yet.");
         } else {
-          console.error(error);
+          toast.error("Something went wrong!");
         }
       }
     };
@@ -114,10 +118,10 @@ import {
             payload: [followUser, user],
           });
           setCurrentUser(user);
-          console.log(`Followed @${followUser.username}`);
+          toast.success("Followed user");
         }
       } catch (error) {
-        console.error(error);
+        console.log(error)
       } finally {
         setIsLoading(false);
       }
@@ -136,11 +140,10 @@ import {
             payload: [followUser, user],
           });
           setCurrentUser(user);
-          console.log(`Unfollowed @${followUser.username}`);
+          toast.success("Unfollowed user");
         }
       } catch (error) {
-        console.error(error);
-        console.log("Something went wrong.");
+        console.log(error)
       } finally {
         setIsLoading(false);
       }
@@ -156,10 +159,10 @@ import {
         if (status === 201) {
           usersDispatch({ type: "EDIT_USER_PROFILE", payload: user });
           setCurrentUser(user);
-          console.log("Updated profile successfully!");
+          toast.success("Updated profile successfully!");
         }
       } catch (error) {
-        console.error(error);
+        toast.error("Something went wrong!")
       } finally {
         setIsLoading(false);
       }

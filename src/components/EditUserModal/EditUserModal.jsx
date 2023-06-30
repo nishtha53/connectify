@@ -10,7 +10,7 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Modal
 
 const styles = {
     position: "absolute",
-    top: "25%",
+    top: "40%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "90%",

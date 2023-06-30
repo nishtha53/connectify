@@ -6,6 +6,7 @@ import {
     useState,
   } from "react";
 
+  import { toast } from "react-hot-toast";
 
 import { initialPostsState,postsReducer } from "../reducer/postReducer";
 
@@ -54,7 +55,7 @@ export const PostsProvider = ({ children }) => {
           postsDispatch({ type: "CREATE_NEW_POST", payload: posts });
         }
       } catch (error) {
-        console.error(error);
+        toast.error("Something went wrong, try again!");
       } finally {
         setIsLoading(false);
       }
@@ -68,9 +69,10 @@ export const PostsProvider = ({ children }) => {
         } = await deletePostService(postId, token);
         if (status === 201) {
           postsDispatch({ type: "DELETE_POST", payload: posts });
+          toast.success("Post deleted successfully!");
         }
       } catch (error) {
-        console.error(error);
+        toast.error("Something went wrong, try again");
       }
     };
   
@@ -84,7 +86,7 @@ export const PostsProvider = ({ children }) => {
           postsDispatch({ type: "EDIT_POST", payload: posts });
         }
       } catch (error) {
-        console.error(error);
+        toast.error("Something went wrong, try again");
       }
     };
 
@@ -96,15 +98,16 @@ export const PostsProvider = ({ children }) => {
         } = await likePostService(postId, token);
         if (status === 201) {
           postsDispatch({ type: "LIKE_POST", payload: posts });
+          toast.success("Liked a post");
         }
       } catch (error) {
         const {
           response: { status },
         } = error;
         if (status === 400) {
-          //console.log("post already liked")
+          toast.error("post already liked")
         } else {
-          console.error(error);
+          toast.error("Something went wrong");
         }
       }
     };
@@ -117,15 +120,16 @@ export const PostsProvider = ({ children }) => {
         } = await dislikePostService(postId, token);
         if (status === 201) {
           postsDispatch({ type: "DISLIKE_POST", payload: posts });
+          toast.success("Unliked the post");
         }
       } catch (error) {
         const {
           response: { status },
         } = error;
         if (status === 400) {
-          //console.log("cannot like post")
+          toast.error("Cannot like a post that is already liked.");
         } else {
-          console.error(error);
+          toast.error("Something went wrong");
         }
       }
     };

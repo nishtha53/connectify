@@ -8,7 +8,7 @@ import { useAuth } from "../../context/auth-context";
 import { usePosts } from "../../context/post-context";
 
 const Home = () => {
-  const { currentUser, logoutHandler } = useAuth();
+  const { currentUser } = useAuth();
   const {
     postsState: { posts },
     isLoading,
@@ -60,7 +60,6 @@ const Home = () => {
         <SearchBar />
         <SuggestedUsers />
       </div>
-      <button onClick={logoutHandler}>Logout</button>
       <br />
     </div>
   );

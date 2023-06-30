@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { toast } from "react-hot-toast";
 
 import { loginService,signupService } from "../services/authService";
 
@@ -31,10 +32,11 @@ export const AuthProvider = ({ children }) => {
         );
         setToken(encodedToken);
         setCurrentUser(foundUser);
+        toast.success(`Welcome back, ${foundUser.firstName}!`, {icon: "👋"})
         navigate(location?.state?.from?.pathname || "/", { replace: true });
       }
     } catch (error) {
-      console.error(error);
+      console.log(error)
     } finally {
       setIsLoading(false);
     }
@@ -60,11 +62,13 @@ export const AuthProvider = ({ children }) => {
         );
         setToken(encodedToken);
         setCurrentUser(createdUser);
-
+        toast.success(`Hi, ${createdUser.firstName}!`, {
+          icon: "👋",
+        });
         navigate("/", { replace: true });
       }
     } catch (error) {
-      console.error(error);
+      console.log(error)
     } finally {
       setIsLoading(false);
     }
@@ -75,6 +79,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("logindetails");
     setToken(null);
     setCurrentUser(null);
+    toast.success("Logged out successfully!");
     navigate("/login");
   };
 
