@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useUsers } from "../../context/user-context";
 import {UserAvatar} from "../UserAvatar/UserAvatar";
 import { PostOptionsModal } from "../PostOptionModal/PostOptionModal";
@@ -29,6 +29,7 @@ const PostCard = ({ post }) => {
     addBookmarkHandler,
     removeBookmarkHandler,
     postAlreadyInBookmarks,
+    handleBtnsClick
   } = useUsers();
 
   const { likePostHandler, dislikePostHandler, likedByLoggedUser } = usePosts();
@@ -37,9 +38,12 @@ const PostCard = ({ post }) => {
 
   const userWhoPosted = users?.find((user) => user.username === post?.username);
 
+  const postModalRef = useRef();
 
   return (
-    <div className="grid grid-cols-[2rem_1fr] gap-2 text-sm border-b border-darkGrey dark:border-lightGrey px-4 py-3 cursor-pointer">
+    <div className="grid grid-cols-[2rem_1fr] gap-2 text-sm border-b border-darkGrey dark:border-lightGrey px-4 py-3 cursor-pointer"
+    ref={postModalRef}
+    >
       <div
         onClick={(e) => {
           e.stopPropagation();
@@ -92,16 +96,17 @@ const PostCard = ({ post }) => {
           <div className="flex justify-center p-2 pr-4">
           <button
               className="cursor-pointer"
-              onClick={() =>
+              onClick={(e) => {
+                e.stopPropagation();
                 likedByLoggedUser(post, currentUser)
-                  ? dislikePostHandler(post?._id)
-                  : likePostHandler(post?._id)
-              }
+                  ? handleBtnsClick(400, dislikePostHandler, post?._id)
+                  : handleBtnsClick(400, likePostHandler, post?._id);
+              }}
             >
               {likedByLoggedUser(post, currentUser) ? (
-                <FaHeart className="text-lg text-red" />
+                <FaHeart className="text-lg text-red hover:scale-125" />
               ) : (
-                <FaRegHeart className="text-lg" />
+                <FaRegHeart className="text-lg hover:scale-125" />
               )}
             </button>
             {post?.likes?.likeCount > 0 && (
@@ -119,21 +124,20 @@ const PostCard = ({ post }) => {
           </div>
 
           <button
-            className="cursor-pointer p-2 pr-4"
-            onClick={() =>
+            className="cursor-pointer p-2 mr-4"
+            onClick={(e) => {
+              e.stopPropagation();
               postAlreadyInBookmarks(post?._id)
-                ? removeBookmarkHandler(post?._id)
-                : addBookmarkHandler(post?._id)
-            }
-
+                ? handleBtnsClick(400, removeBookmarkHandler, post?._id)
+                : handleBtnsClick(400, addBookmarkHandler, post?._id);
+            }}
           >
             {postAlreadyInBookmarks(post?._id) ? (
-              <FaBookmark className="text-lg" />
+              <FaBookmark className="text-lg hover:scale-125" />
             ) : (
-              <FaRegBookmark className="text-lg" />
+              <FaRegBookmark className="text-lg hover:scale-125" />
             )}
           </button>
-
 
           <button className="cursor-pointer p-2 pr-4">
             <MdShare className="text-lg" />

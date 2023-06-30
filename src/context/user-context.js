@@ -4,6 +4,7 @@ import {
     useEffect,
     useReducer,
     useState,
+    useRef
   } from "react";
 
   import { toast } from "react-hot-toast";
@@ -26,7 +27,8 @@ import {
     );
     const [isLoading, setIsLoading] = useState(false);
   
-  
+    const timerId = useRef();
+
     const getAllUsers = async () => {
       setIsLoading(true);
       try {
@@ -69,7 +71,7 @@ import {
         } = await addBookmarkService(postId, token);
         if (status === 200) {
           usersDispatch({ type: "ADD_BOOKMARK", payload: bookmarks });
-          toast.success("Added to bookmarks!");
+          toast.success("Added to bookmarks.");
         }
       } catch (error) {
         const {
@@ -78,6 +80,7 @@ import {
         if (status === 400) {
           toast.error("Post is already bookmarked.");
         } else {
+          console.error(error);
           toast.error("Something went wrong!");
         }
       }
@@ -91,7 +94,7 @@ import {
         } = await removeBookmarkService(postId, token);
         if (status === 200) {
           usersDispatch({ type: "REMOVE_BOOKMARK", payload: bookmarks });
-          toast.success("Removed from bookmarks!");
+          toast.success("Removed from bookmarks.");
         }
       } catch (error) {
         const {
@@ -100,6 +103,7 @@ import {
         if (status === 400) {
           toast.error("Post not bookmarked yet.");
         } else {
+          console.error(error);
           toast.error("Something went wrong!");
         }
       }
@@ -118,7 +122,7 @@ import {
             payload: [followUser, user],
           });
           setCurrentUser(user);
-          toast.success("Followed user");
+          toast.success(`Followed @${followUser.username}`);
         }
       } catch (error) {
         console.log(error)
@@ -140,9 +144,10 @@ import {
             payload: [followUser, user],
           });
           setCurrentUser(user);
-          toast.success("Unfollowed user");
+          toast.success(`Unfollowed @${followUser.username}`);
         }
       } catch (error) {
+        toast.error("Something went wrong")
         console.log(error)
       } finally {
         setIsLoading(false);
@@ -162,16 +167,21 @@ import {
           toast.success("Updated profile successfully!");
         }
       } catch (error) {
-        toast.error("Something went wrong!")
+        toast.error("Something went wrong!");
+        console.log(error)
       } finally {
         setIsLoading(false);
       }
     };
   
+    const handleBtnsClick = (delay, callback, ...args) => {
+      clearTimeout(timerId.current);
+      timerId.current = setTimeout(() => {
+        callback(...args);
+      }, delay);
+    };
     const postAlreadyInBookmarks = (postId) =>
       usersState?.bookmarks?.find((id) => id === postId);
-
-    
   
     useEffect(() => {
       getAllUsers();
@@ -184,7 +194,7 @@ import {
 
   
     return (
-      <UsersContext.Provider value={{ usersState, usersDispatch, isLoading,addBookmarkHandler,removeBookmarkHandler,postAlreadyInBookmarks, followUserHandler, unfollowUserHandler, editUserProfileHandler }}>
+      <UsersContext.Provider value={{ usersState, usersDispatch, isLoading,addBookmarkHandler,removeBookmarkHandler,postAlreadyInBookmarks, followUserHandler, unfollowUserHandler, editUserProfileHandler, handleBtnsClick }}>
         {children}
       </UsersContext.Provider>
     );

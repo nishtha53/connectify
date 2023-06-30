@@ -91,7 +91,8 @@ export const AuthProvider = ({ children }) => {
             loginHandler,
             loading,
             signupHandler,
-            logoutHandler
+            logoutHandler,
+            setCurrentUser
           }}
         >
           {children}
