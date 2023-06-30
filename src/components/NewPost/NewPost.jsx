@@ -3,13 +3,18 @@ import { useAuth } from "../../context/auth-context";
 import { usePosts } from "../../context/post-context";
 import { BsFillImageFill, FaSmile, MdCancel } from "../../utils/icons";
 import { PrimaryButton } from "../Buttons/Buttons";
-import {UserAvatar} from "../UserAvatar/UserAvatar";
+import { UserAvatar } from "../UserAvatar/UserAvatar";
 import { uploadMedia } from "../../utils/uploadMedia";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody } from "@chakra-ui/react";
 
 
 const NewPost = () => {
   const { currentUser } = useAuth();
   const { createPostHandler } = usePosts();
+
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [content, setContent] = useState("");
   const [media, setMedia] = useState(null);
 
@@ -78,9 +83,14 @@ const NewPost = () => {
             />
             <BsFillImageFill />
           </label>
-          <label className="cursor-pointer text-xl">
-            <input className="hidden" />
-            <FaSmile />
+          <label
+            className="cursor-pointer"
+            onClick={() => setShowEmojiPicker((prev) => !prev)}
+          >
+            <FaSmile
+              className="text-xl scale-110 hover:scale-125"
+              title="Add Emoji"
+            />
           </label>
           <PrimaryButton
             type="submit"
@@ -91,6 +101,30 @@ const NewPost = () => {
           </PrimaryButton>
         </div>
       </form>
+      <Modal isOpen={showEmojiPicker} onClose={() => setShowEmojiPicker(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Select an Emoji</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <div>
+              <Picker
+                data={data}
+                emojiSize={20}
+                emojiButtonSize={28}
+                maxFrequentRows={0}
+                navPosition="bottom"
+                previewPosition="none"
+                onEmojiSelect={(emoji) => {
+                  setContent(content + emoji.native);
+                  setShowEmojiPicker(false);
+                }}
+              />
+            </div>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
     </div>
   );
 };

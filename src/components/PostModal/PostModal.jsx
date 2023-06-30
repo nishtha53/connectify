@@ -7,6 +7,10 @@ import { useRef, useState } from "react";
 import { BsFillImageFill, FaSmile, MdCancel } from "../../utils/icons";
 import { uploadMedia } from "../../utils/uploadMedia";
 import { usePosts } from "../../context/post-context";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody } from "@chakra-ui/react";
+
 
 const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
   const { currentUser } = useAuth();
@@ -24,6 +28,7 @@ const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
   
 
   const [content, setContent] = useState(post || {});
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [media, setMedia] = useState(null);
 
   const postRef = useRef();
@@ -134,10 +139,15 @@ const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
               />
               <BsFillImageFill />
             </label>
-            <label className="cursor-pointer text-xl">
-              <input className="hidden" />
-              <FaSmile />
-            </label>
+            <label
+            className="cursor-pointer"
+            onClick={() => setShowEmojiPicker((prev) => !prev)}
+          >
+            <FaSmile
+              className="text-xl scale-110 hover:scale-125"
+              title="Add Emoji"
+            />
+          </label>
           </div>
           <div className="flex gap-5">
             <PrimaryButton
@@ -160,6 +170,35 @@ const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
           </div>
         </div>
       </form>
+      <Modal isOpen={showEmojiPicker} onClose={() => setShowEmojiPicker(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Select an Emoji</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <div>
+            <Picker
+            data={data}
+            emojiSize={20}
+            emojiButtonSize={28}
+            maxFrequentRows={0}
+            navPosition="bottom"
+            previewPosition="none"
+            onEmojiSelect={(emoji) => {
+              setContent((prev) => ({
+                ...prev,
+                content: prev.content
+                  ? prev.content + emoji.native
+                  : emoji.native,
+              }));
+              setShowEmojiPicker(false);
+            }}
+          />
+            </div>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
     </div>
   );
 };
