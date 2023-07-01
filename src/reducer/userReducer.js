@@ -2,6 +2,7 @@
 const initialUsersState = {
   users: [],
   bookmarks: [],
+  searchInput: "",
   user: {},
 };
 
@@ -16,6 +17,8 @@ const usersReducer = (state, { type, payload }) => {
       return { ...state, bookmarks: payload };
     case "REMOVE_BOOKMARK":
       return { ...state, bookmarks: payload };
+    case "SEARCH_USER":
+      return { ...state, searchInput: payload };
     case "UPDATE_FOLLOW_USER":
       return {
           ...state,

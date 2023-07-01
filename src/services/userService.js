@@ -2,6 +2,8 @@ import axios from "axios";
 
 const getAllUsersService = async () => await axios.get("/api/users");
 
+const getUserByUsernameService = async (username) =>
+  await axios.get(`/api/users/${username}`);
 
 const getAllBookmarksService = async (encodedToken) =>
   axios.get("/api/users/bookmark", {
@@ -54,5 +56,6 @@ const unfollowUserService = async (followUserId, encodedToken) =>
     removeBookmarkService,
     followUserService,
     unfollowUserService,
-    editUserProfileService
+    editUserProfileService,
+    getUserByUsernameService
   };

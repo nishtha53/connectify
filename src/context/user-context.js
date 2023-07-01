@@ -182,6 +182,12 @@ import {
     };
     const postAlreadyInBookmarks = (postId) =>
       usersState?.bookmarks?.find((id) => id === postId);
+
+    const searchedUsers =
+      usersState.searchInput &&
+      usersState.users.filter((user) =>
+        user.username.toLowerCase().includes(usersState.searchInput.toLowerCase())
+      );
   
     useEffect(() => {
       getAllUsers();
@@ -194,7 +200,7 @@ import {
 
   
     return (
-      <UsersContext.Provider value={{ usersState, usersDispatch, isLoading,addBookmarkHandler,removeBookmarkHandler,postAlreadyInBookmarks, followUserHandler, unfollowUserHandler, editUserProfileHandler, handleBtnsClick }}>
+      <UsersContext.Provider value={{ usersState, usersDispatch, isLoading,addBookmarkHandler,removeBookmarkHandler,postAlreadyInBookmarks, followUserHandler, unfollowUserHandler, editUserProfileHandler, handleBtnsClick, searchedUsers }}>
         {children}
       </UsersContext.Provider>
     );
