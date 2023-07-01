@@ -96,7 +96,7 @@ function Login() {
                   _hover={{
                     bg: 'blue.500',
                   }}>
-                  Login as Guest Credentials
+                  Login as Guest
                 </Button>
               </Stack>
               <Stack pt={6}>
