@@ -75,14 +75,14 @@ export const users = [
   },
   {
     _id: "79Gksh9otl",
-    firstName: "Sarah",
-    lastName: "Wilson",
-    password: "sarah123",
-    username: "wilsarah",
+    firstName: "John",
+    lastName: "Human",
+    password: "johnthehuman",
+    username: "johnthehuman",
     bio: "Be Yourself!",
-    website: "https://sarahwilson.com",
+    website: "https://johnthehuman.com/",
     profileAvatar:
-      "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686331082/socialMedia/Sarah-Wilson_io6cpx.jpg",
+      "https://res.cloudinary.com/dqgqdj4jf/image/upload/v1654448171/PalletGram/users/701651-vector-cartoon-portrait-avatar-illustration-fanart_abtrqt.jpg",
     backgroundImage:
       "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686341814/socialMedia/be-yourself-bg_rmxvmb.jpg",
     createdAt: "2018-06-12T01:06:00+05:30",
@@ -111,10 +111,10 @@ export const users = [
   },
   {
     _id: "1T6Be1QpLm",
-    firstName: "Jacob",
+    firstName: "Monica",
     lastName: "Mitchell",
-    password: "jacob123",
-    username: "jacobmitch",
+    password: "monica",
+    username: "monica",
     bio: "An adventure-seeking explorer",
     website: "https://jacobmitchell.com",
     profileAvatar:
@@ -136,7 +136,7 @@ export const users = [
     followers: [
       {
         _id: "79Gksh9otl",
-        firstName: "Sarah",
+        firstName: "shweta",
         lastName: "Wilson",
         username: "wilsarah",
         profileAvatar:
@@ -155,10 +155,10 @@ export const users = [
   },
   {
     _id: "LCrc9f0Zl0",
-    firstName: "Aditya",
+    firstName: "varnita",
     lastName: "Joshi",
     password: "aditya123",
-    username: "adityaj",
+    username: "varnita19",
     bio: "Composing musical journeys",
     website: "https://adityajoshi.com",
     profileAvatar:
@@ -182,14 +182,14 @@ export const users = [
   },
   {
     _id: "o5gzWjEeX_",
-    firstName: "Rohan",
+    firstName: "dhaval",
     lastName: "Roy",
-    password: "rohan123",
-    username: "rohaaan",
+    password: "dhaval",
+    username: "dhaval",
     bio: "Exploring one delicious bite at a time!",
     website: "https://rohan-roy.com",
     profileAvatar:
-      "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686330965/socialMedia/Rohan-Roy_zk6dlm.jpg",
+      "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686343623/socialMedia/food-bg_dgsyce.jpg",
     backgroundImage:
       "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686343623/socialMedia/food-bg_dgsyce.jpg",
     createdAt: "2019-08-19T01:06:00+05:30",
@@ -246,7 +246,7 @@ export const users = [
         lastName: "Smith",
         username: "emilysmith",
         profileAvatar:
-          "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686331085/socialMedia/Emily-Smith_jfepcx.jpg",
+          "https://res.cloudinary.com/dqgqdj4jf/image/upload/v1654447947/PalletGram/users/m0lXiJrv_400x400_yly3ts.jpg"
       },
     ],
     followers: [],
@@ -254,14 +254,14 @@ export const users = [
   },
   {
     _id: "ab8zWjEeXd",
-    firstName: "James",
-    lastName: "Murphy",
-    password: "james@123",
-    username: "jamesmurf",
+    firstName: "Jiya",
+    lastName: "Patel",
+    password: "jiya@123",
+    username: "Jiya",
     bio: "Fashion aficionado",
     website: "https://jamesmurf.com",
     profileAvatar:
-      "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686331038/socialMedia/James-Murphy_djl3zv.jpg",
+        "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686343623/socialMedia/food-bg_dgsyce.jpg",
     backgroundImage:
       "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686344677/socialMedia/fashion-stage-bg_ykeinp.jpg",
     createdAt: "2018-05-02T01:06:00+05:30",
