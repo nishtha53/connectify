@@ -22,6 +22,7 @@ import {
     HiDotsHorizontal,
     MdShare,
 } from "../../utils/icons";
+import { Loader } from "../../components/Loader/Loader";
 
 const SinglePost = () => {
     const { postId } = useParams();
@@ -250,7 +251,7 @@ const SinglePost = () => {
                 </div>  
               </div>
             ) : (
-              "loader"
+              <Loader />
             )}
           </div>
         </div>

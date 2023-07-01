@@ -1,9 +1,9 @@
 import { usePosts } from "../../context/post-context";
-import { NewPost } from "../../components/NewPost/NewPost";
 import { PostCard } from "../../components/PostCard/PostCard";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { SideBar } from "../../components/SideBar/SideBar";
 import { SuggestedUsers } from "../../components/SuggestedUsers/SuggestedUsers";
+import { Loader } from "../../components/Loader/Loader";
 
 const Explore = () => {
   const {
@@ -25,7 +25,7 @@ const Explore = () => {
         <div>
           <div>
             {isLoading ? (
-              "Loader"
+              <Loader />
             ) : posts?.length > 0 ? (
               [...posts].map((post) => <PostCard key={post._id} post={post} />)
             ) : (

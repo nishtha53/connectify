@@ -7,6 +7,7 @@ import { ProfileDetails } from "../../components/ProfileDetails/ProfileDetails";
 import { useUsers } from "../../context/user-context";
 import { usePosts } from "../../context/post-context";
 import { FaArrowLeft } from "../../utils/icons";
+import { Loader } from "../../components/Loader/Loader";
 
 const Profile = () => {
   const { username } = useParams();
@@ -45,7 +46,7 @@ const Profile = () => {
         <div>
           {user ? <ProfileDetails user={user}  /> : <></>}
           {isLoading ? (
-            "Loader"
+            <Loader />
           ) : !user ? (
             <p className="p-4 text-center font-bold">User not found.</p>
           ) : userPosts?.length ? (

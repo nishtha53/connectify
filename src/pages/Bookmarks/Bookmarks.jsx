@@ -4,6 +4,7 @@ import { PostCard } from "../../components/PostCard/PostCard";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { SideBar } from "../../components/SideBar/SideBar";
 import { SuggestedUsers } from "../../components/SuggestedUsers/SuggestedUsers";
+import { Loader } from "../../components/Loader/Loader";
 
 
 const Bookmarks = () => {
@@ -32,7 +33,7 @@ const Bookmarks = () => {
         <div>
           <div>
             {isLoading ? (
-              "Loader"
+              <Loader />
             ) : bookmarks?.length > 0 ? (
              bookmarks?.map((bookmarkPostId) => {
                 const post = posts.find((post) => {

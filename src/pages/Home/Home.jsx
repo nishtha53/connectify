@@ -1,3 +1,4 @@
+import { Loader } from "../../components/Loader/Loader";
 import { NewPost } from "../../components/NewPost/NewPost";
 import { PostCard } from "../../components/PostCard/PostCard";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
@@ -44,7 +45,7 @@ const Home = () => {
           <SortBar />
           <div>
             {isLoading ? (
-              "Loader"
+              <Loader />
             ) : sortedPosts?.length > 0 ? (
               [...sortedPosts].map((post) => (
                 <PostCard key={post._id} post={post} />
