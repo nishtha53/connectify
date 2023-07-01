@@ -5,6 +5,7 @@ import {Home} from "../pages/Home/Home";
 import { Explore } from "../pages/Explore/Explore";
 import { Bookmarks } from "../pages/Bookmarks/Bookmarks";
 import {Profile} from "../pages/Profile/Profile";
+import { SinglePost } from "../pages/SinglePost/SinglePost";
 import { PrivateRoutes } from "./PrivateRoutes";
 
 const AppRoutes = () => {
@@ -19,6 +20,7 @@ const AppRoutes = () => {
                 <Route path="/explore" element={<Explore />} />
                 <Route path="/bookmarks" element={<Bookmarks />} />
                 <Route path="/profile/:username" element={<Profile />} />
+                <Route path="/post/:postId" element={<SinglePost />} />
             </Route>
         </Routes>
       </div>

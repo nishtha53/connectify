@@ -3,6 +3,7 @@ import { useUsers } from "../../context/user-context";
 import {UserAvatar} from "../UserAvatar/UserAvatar";
 import { PostOptionsModal } from "../PostOptionModal/PostOptionModal";
 import { useNavigate } from "react-router-dom";
+import { sharePost } from "../../utils/sharePost";
 import {
   HiDotsHorizontal,
   FaRegHeart,
@@ -77,7 +78,7 @@ const PostCard = ({ post }) => {
           </div>
         </div>
 
-        <div>{post?.content}</div>
+        <div onClick={() => navigate(`/post/${post?._id}`)}>{post?.content}</div>
 
         {post?.mediaURL &&
           (post?.mediaURL.split("/")[4] === "image" ? (
@@ -85,9 +86,11 @@ const PostCard = ({ post }) => {
               src={post?.mediaURL}
               alt={post?.mediaAlt}
               className="w-full h-auto rounded-md"
+              onClick={() => navigate(`/post/${post?._id}`)}
             />
           ) : (
-            <video controls className="w-full h-auto rounded-md">
+            <video controls className="w-full h-auto rounded-md" onClick={() => navigate(`/post/${post?._id}`)}
+            >
               <source src={post?.mediaURL} type="video/mp4" />
             </video>
           ))}
@@ -140,7 +143,10 @@ const PostCard = ({ post }) => {
           </button>
 
           <button className="cursor-pointer p-2 pr-4">
-            <MdShare className="text-lg" />
+            <MdShare className="text-lg"   onClick={(e) => {
+                    e.stopPropagation();
+                    sharePost(post?._id);
+                  }} />
           </button>
         </div>
       </div>

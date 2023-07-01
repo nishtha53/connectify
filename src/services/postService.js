@@ -2,6 +2,8 @@ import axios from "axios";
 
 const getAllPostsService = async () => await axios.get("/api/posts");
 
+const getSinglePostService = async (postId) =>
+  await axios.get(`/api/posts/${postId}`);
 
 const createPostService = async (content, mediaURL, mediaAlt, encodedToken) =>
   await axios.post(
@@ -48,4 +50,4 @@ const dislikePostService = async (postId, encodedToken) =>
       headers: { authorization: encodedToken },
     }
   );
-export { getAllPostsService, likePostService, dislikePostService, createPostService, editPostService,deletePostService };
+export { getAllPostsService, likePostService, dislikePostService, createPostService, editPostService,deletePostService, getSinglePostService };

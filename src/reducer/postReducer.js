@@ -28,6 +28,8 @@ const postsReducer = (state, { type, payload }) => {
       return { ...state, posts: payload };
     case "FILTER_POSTS":
       return { ...state, filterType: payload };
+    case "GET_SINGLE_POST":
+      return { ...state, post: payload };
     default:
       return state;
   }

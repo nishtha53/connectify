@@ -11,7 +11,7 @@ import {
 import { initialPostsState,postsReducer } from "../reducer/postReducer";
 
 
-import { getAllPostsService, dislikePostService,likePostService, createPostService, editPostService, deletePostService } from "../services/postService";
+import { getAllPostsService, dislikePostService,likePostService, createPostService, editPostService, deletePostService, getSinglePostService } from "../services/postService";
 
 import { useAuth } from "./auth-context";
 export const PostsContext = createContext();
@@ -155,12 +155,26 @@ export const PostsProvider = ({ children }) => {
         }
       };
 
+      const getSinglePost = async (postId) => {
+        try {
+          const {
+            status,
+            data: { post },
+          } = await getSinglePostService(postId);
+          if (status === 200) {
+            postsDispatch({ type: "GET_SINGLE_POST", payload: post });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
     useEffect(() => {
         getAllPosts();
       }, []);
     
       return (
-        <PostsContext.Provider value={{ postsState, postsDispatch, isLoading,likePostHandler,dislikePostHandler,likedByLoggedUser, filteredPosts, createPostHandler, editPostHandler, deletePostHandler }}>
+        <PostsContext.Provider value={{ postsState, postsDispatch, isLoading,likePostHandler,dislikePostHandler,likedByLoggedUser, filteredPosts, createPostHandler, editPostHandler, deletePostHandler, getSinglePost }}>
           {children}
         </PostsContext.Provider>
       );
