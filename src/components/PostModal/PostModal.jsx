@@ -15,6 +15,7 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Modal
 const PostModal = ({ post, setShowPostModal, setShowOptions }) => {
   const { currentUser } = useAuth();
   const { createPostHandler, editPostHandler } = usePosts();
+   
   const styles = {
     position: "absolute",
     top: "30%",

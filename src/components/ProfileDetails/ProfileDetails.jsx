@@ -1,4 +1,4 @@
-import { SecondaryButton } from "../Buttons/Buttons";
+import { PrimaryButton } from "../Buttons/Buttons";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
 import { HiLink, MdDateRange } from "../../utils/icons";
 import { Link } from "react-router-dom";
@@ -50,23 +50,23 @@ const ProfileDetails = ({ user }) => {
             <div className="flex justify-center items-center gap-4 mb-2">
               {user?.username === currentUser?.username ? (
                 <>
-                  <SecondaryButton
+                  <PrimaryButton
                     className="py-1 px-3 rounded"
                     onClick={() => setEditUserModal(true)}
 
                   >
                     Edit Profile
-                  </SecondaryButton>
-                  <SecondaryButton
+                  </PrimaryButton>
+                  <PrimaryButton
                     className="py-1 px-3 rounded hover:bg-red"
                     onClick={logoutHandler}
                   >
                     Logout
-                  </SecondaryButton>
+                  </PrimaryButton>
                 </>
               ) : (
                 <>
-                  <SecondaryButton
+                  <PrimaryButton
                     className="py-1 px-3 rounded"
                     onClick={() =>
                       userAlreadyFollowing
@@ -75,7 +75,7 @@ const ProfileDetails = ({ user }) => {
                     }
                   >
                     {userAlreadyFollowing ? "UnFollow" : "Follow"}
-                  </SecondaryButton>
+                  </PrimaryButton>
                 </>
               )}
             </div>
