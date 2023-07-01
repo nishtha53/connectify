@@ -219,7 +219,7 @@ const EditUserModal = ({ setEditUserModal }) => {
       
 <Modal isOpen={showAvatarOptions} onClose={() => setShowAvatarOptions(false)}>
   <ModalOverlay />
-  <ModalContent width="90%" maxWidth="500px" maxHeight="90vh" height="50%">
+  <ModalContent width="90%" maxWidth="500px" maxHeight="90vh" height="auto">
     <ModalHeader>
       <span className="font-semibold">Choose Your Avatar</span>
       <ModalCloseButton />
