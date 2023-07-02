@@ -137,8 +137,8 @@ export const users = [
       {
         _id: "79Gksh9otl",
         firstName: "shweta",
-        lastName: "Wilson",
-        username: "wilsarah",
+        lastName: "sharma",
+        username: "shweta",
         profileAvatar:
           "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686331082/socialMedia/Sarah-Wilson_io6cpx.jpg",
       },
